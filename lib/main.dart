@@ -4,6 +4,11 @@ import 'screens/splash_screen.dart';
 import 'utils/app_theme.dart';
 import 'utils/constants.dart';
 import 'data/local/sample_model.dart';
+import 'data/local/models/user_model.dart';
+import 'screens/role_selection_screen.dart';
+import 'screens/customer_home_screen.dart';
+import 'screens/chef_home_screen.dart';
+import 'screens/rider_home_screen.dart';
 
 void main() async {
   // Ensure Flutter bindings are initialized
@@ -14,9 +19,12 @@ void main() async {
 
   // Register Hive Adapters
   Hive.registerAdapter(SampleModelAdapter());
+  Hive.registerAdapter(UserRoleAdapter());
+  Hive.registerAdapter(UserModelAdapter());
 
   // Open all Hive boxes BEFORE runApp()
   await Hive.openBox<SampleModel>(HiveBoxes.sampleBox);
+  await Hive.openBox<UserModel>(AppConstants.userBox);
 
   // Run the app
   runApp(const HomePlatesApp());

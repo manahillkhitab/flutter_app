@@ -11,6 +11,7 @@ class HiveBoxes {
 class AppConstants {
   static const String appName = 'HomePlates';
   static const int splashDuration = 3; // seconds
+  static const String userBox = 'user_box';
 }
 
 // Color Constants (matching the beige/cream design from layouts)
