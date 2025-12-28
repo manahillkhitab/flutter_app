@@ -5,6 +5,7 @@ import 'utils/app_theme.dart';
 import 'utils/constants.dart';
 import 'data/local/sample_model.dart';
 import 'data/local/models/user_model.dart';
+import 'data/local/models/dish_model.dart';
 import 'screens/role_selection_screen.dart';
 import 'screens/customer_home_screen.dart';
 import 'screens/chef_home_screen.dart';
@@ -21,10 +22,12 @@ void main() async {
   Hive.registerAdapter(SampleModelAdapter());
   Hive.registerAdapter(UserRoleAdapter());
   Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(DishModelAdapter());
 
   // Open all Hive boxes BEFORE runApp()
   await Hive.openBox<SampleModel>(HiveBoxes.sampleBox);
   await Hive.openBox<UserModel>(AppConstants.userBox);
+  await Hive.openBox<DishModel>(AppConstants.dishBox);
 
   // Run the app
   runApp(const HomePlatesApp());

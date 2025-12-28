@@ -19,8 +19,17 @@ class AuthController extends ChangeNotifier {
 
   // Simplified login: just name and role
   Future<void> login(String name, UserRole role) async {
+    // Generate consistent ID based on name and role
+    // This ensures the same user always gets the same ID
+    final consistentId = '${name.toLowerCase()}_${role.name}';
+    
+    debugPrint('=== Login ===');
+    debugPrint('Name: $name');
+    debugPrint('Role: ${role.name}');
+    debugPrint('Generated ID: $consistentId');
+    
     final user = UserModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: consistentId,
       name: name,
       role: role,
       isLoggedIn: true,

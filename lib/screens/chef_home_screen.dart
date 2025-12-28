@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../controllers/auth_controller.dart';
 import '../utils/app_theme.dart';
 import 'role_selection_screen.dart';
+import 'my_dishes_screen.dart';
 
 class ChefHomeScreen extends StatelessWidget {
   const ChefHomeScreen({super.key});
@@ -22,24 +23,39 @@ class ChefHomeScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.outdoor_grill, size: 100, color: AppTheme.mutedSaffron),
-            const SizedBox(height: 24),
-            Text(
-              'Welcome, Chef ${authController.currentUser?.name ?? ''}!',
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Role: Home Chef',
-              style: TextStyle(color: AppTheme.mutedSaffron, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 40),
-            const Text('Ready to cook? Manage your menu!'),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.outdoor_grill, size: 100, color: AppTheme.mutedSaffron),
+              const SizedBox(height: 24),
+              Text(
+                'Welcome, Chef ${authController.currentUser?.name ?? ''}!',
+                style: Theme.of(context).textTheme.displayMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Role: Home Chef',
+                style: TextStyle(color: AppTheme.mutedSaffron, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyDishesScreen()),
+                  );
+                },
+                icon: const Icon(Icons.restaurant_menu),
+                label: const Text('Manage My Dishes'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
