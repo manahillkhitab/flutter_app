@@ -42,13 +42,22 @@ class _MyDishesScreenState extends State<MyDishesScreen> {
     
     debugPrint('=== Running Dish Migration ===');
     
-    // Update all dishes to use current user's consistent ID
+    // Only update dishes with OLD timestamp-based IDs
+    // New format: "name_role" (e.g., "misha_chef")
+    // Old format: "1766900608827" (timestamp)
     for (var key in dishBox.keys) {
       final dish = dishBox.get(key);
-      if (dish != null && dish.chefId != currentUser.id) {
-        debugPrint('Migrating dish: ${dish.name} from ${dish.chefId} to ${currentUser.id}');
-        final updated = dish.copyWith(chefId: currentUser.id);
-        await dishBox.put(key, updated);
+      if (dish != null) {
+        // Check if chefId is a timestamp (all digits) - OLD format
+        final isOldFormat = RegExp(r'^\d+$').hasMatch(dish.chefId);
+        
+        if (isOldFormat && dish.chefId != currentUser.id) {
+          debugPrint('Migrating dish: ${dish.name} from OLD ID ${dish.chefId} to ${currentUser.id}');
+          final updated = dish.copyWith(chefId: currentUser.id);
+          await dishBox.put(key, updated);
+        } else {
+          debugPrint('Skipping dish: ${dish.name} - already has valid chef ID: ${dish.chefId}');
+        }
       }
     }
     

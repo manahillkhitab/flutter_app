@@ -13,6 +13,7 @@ class AppConstants {
   static const int splashDuration = 3; // seconds
   static const String userBox = 'user_box';
   static const String dishBox = 'dish_box';
+  static const String orderBox = 'order_box';
 }
 
 // Color Constants (matching the beige/cream design from layouts)
